@@ -324,7 +324,7 @@ only_corners = false;
 
 
 /* [Labels] */
-// Engrave each bit's label (from the bit list) into the floor beside it.
+// Engrave each bit's label (from the bit list) into the floor under it.
 labels = true;
 // Text height. Only has an effect if labels is on.
 label_size = 5;
@@ -437,13 +437,7 @@ function ypos(i) = i == 0 ? 0 : ypos(i-1) + pitch(i-1);
 
 y_lo = min([for (i = [0:nbits-1]) ypos(i) - ext(i)]);
 y_hi = max([for (i = [0:nbits-1]) ypos(i) + ext(i)]);
-// only the LAST bit's label reaches past the row (every other bit's label
-// lands in the gap toward the next bit, which already has room). Bias the
-// centering by half the label's reach instead of padding need_y evenly on
-// both ends -- otherwise the fix "works" but wastes an equal, unneeded
-// gap at the first-bit end too.
-label_margin = labels ? 1 + label_size : 0;
-function cy(i) = ypos(i) - (y_lo + y_hi + label_margin)/2;
+function cy(i) = ypos(i) - (y_lo + y_hi)/2;
 
 // ---- heights ----------------------------------------------------------------
 // The library's base is BASE_HEIGHT (7 mm) of solid material.
@@ -455,7 +449,7 @@ rail_top = axis_z + grip + 0.8;
 
 max_len  = max([for (i = [0:nbits-1]) bitlen(i)]);
 need_x   = max_len + 2*end_gap;
-need_y   = (y_hi - y_lo) + 2*bit_gap + label_margin;
+need_y   = (y_hi - y_lo) + 2*bit_gap;
 need_z   = axis_z + max_head/2 + top_clearance;
 
 // ---- let the library tell us how much room a given footprint really has ------
@@ -561,8 +555,7 @@ module rails_clipped() {
 module engraving() {
     for (i = [0:nbits-1])
         if (lbl(i) != "")
-            translate([0, cy(i) + max(dL(i), dR(i))/2 + 1 + label_size/2,
-                       floor_z - label_depth])
+            translate([0, cy(i), floor_z - label_depth])
                 linear_extrude(label_depth + EPS)
                     text(lbl(i), size = label_size, halign = "center",
                          valign = "center");
