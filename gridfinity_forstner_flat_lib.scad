@@ -457,6 +457,15 @@ label_size = 5;
 label_depth = 0.6;
 
 
+/* [Testing] */
+// Render a small standalone swatch instead of the whole bin -- a short
+// strip of both rails with just this bit's two seats cut in, so you can
+// test-fit and dial in grip_pinch/slot_clearance on a small, fast print
+// before committing to the full model. 0 = off (render the full bin),
+// otherwise which bit (in sorted order, 1-based) to generate a swatch for.
+test_bit = 0;
+
+
 // =============================================================================
 //  Bit table and layout maths  (the only custom part)
 // =============================================================================
@@ -741,7 +750,30 @@ module holder() {
     }
 }
 
-if (section_view)
+// a small printable coupon: a short strip of both rails with one bit's
+// two seats cut in, for test-fitting grip_pinch/slot_clearance without
+// printing the whole bin. See test_bit in [Testing].
+module test_swatch() {
+    i = min(max(test_bit, 1), nbits) - 1;
+    pad = 10;
+    sx = G + rail_width + 2*pad;
+    sy = rail_width + 2*pad;
+    difference() {
+        union() {
+            translate([-sx/2, -sy/2, 0])
+                cube([sx, sy, floor_z]);
+            for (x = [-G/2, G/2])
+                translate([x - rail_width/2, -sy/2, floor_z - EPS])
+                    cube([rail_width, sy, rail_top - floor_z + EPS]);
+        }
+        translate([-G/2, 0, 0]) seat(dL(i));
+        translate([ G/2, 0, 0]) seat(dR(i));
+    }
+}
+
+if (test_bit > 0)
+    test_swatch();
+else if (section_view)
     difference() {
         holder();
         translate([-outer.x, cy(0), -1])
