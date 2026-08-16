@@ -462,7 +462,9 @@ label_depth = 0.6;
 // strip of both rails with just this bit's two seats cut in, so you can
 // test-fit and dial in grip_pinch/slot_clearance on a small, fast print
 // before committing to the full model. 0 = off (render the full bin),
-// otherwise which bit (in sorted order, 1-based) to generate a swatch for.
+// otherwise which enabled bit to generate a swatch for -- 1-based, counted
+// in the order the slots appear (bit01, bit02, ...), skipping disabled
+// ones, not sorted layout order.
 test_bit = 0;
 
 
@@ -760,7 +762,13 @@ module holder() {
 // two seats cut in, for test-fitting grip_pinch/slot_clearance without
 // printing the whole bin. See test_bit in [Testing].
 module test_swatch() {
-    i = min(max(test_bit, 1), nbits) - 1;
+    // test_bit counts enabled bits in the order their slots appear
+    // (bit01, bit02, ...), not sorted (largest-first) layout order, since
+    // that's how they're numbered/labelled in the Customizer. order[]
+    // maps sorted position -> original position, so find the sorted
+    // position whose order[] entry matches the slot the user asked for.
+    j = min(max(test_bit, 1), nbits) - 1;
+    i = [for (k = [0:nbits-1]) if (order[k] == j) k][0];
     pad = 10;
     sx = G + rail_width + 2*pad;
     sy = rail_width + 2*pad;
