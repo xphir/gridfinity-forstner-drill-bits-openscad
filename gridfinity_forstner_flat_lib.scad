@@ -647,14 +647,20 @@ bin = new_bin(
 inner  = bin_get_infill_size_mm(bin);
 outer  = bin_get_bounding_box(bin);
 
-// does bit i's mount segment (neck or body) actually span both rail
-// positions, or does a rail spill into a neighbouring segment (head, the
-// other of neck/body, or waist) where the seat would be sized wrong?
-function mount_lo(i) = mnt_neck(i) ? hl(i) : hl(i) + nl(i);
-function mount_hi(i) = mnt_neck(i) ? hl(i) + nl(i) : hl(i) + nl(i) + bl(i);
-function mount_ok(i) =
-    d_near(i) >= mount_lo(i) && d_near(i) <= mount_hi(i) &&
-    d_far(i)  >= mount_lo(i) && d_far(i)  <= mount_hi(i);
+// Does a rail actually land somewhere dia_at() sizes correctly for bit i?
+// Landing on the head or base is always fine (both have their own known
+// diameter). Landing on the CHOSEN mount (neck or body) is fine too, since
+// that's what the seat gets sized to. The only genuinely bad spots are the
+// *other*, non-chosen one of neck/body (different diameter, sized wrong),
+// or the waist (never sized to its own diameter at all).
+function bad_lo(i) = mnt_neck(i) ? hl(i) + nl(i)         : hl(i);
+function bad_hi(i) = mnt_neck(i) ? hl(i) + nl(i) + bl(i) : hl(i) + nl(i);
+function waist_lo(i) = hl(i) + nl(i) + bl(i);
+function waist_hi(i) = hl(i) + nl(i) + bl(i) + wl(i);
+function in_bad_zone(i, d) =
+    (d >= bad_lo(i)   && d < bad_hi(i))   ||
+    (d >= waist_lo(i) && d < waist_hi(i));
+function mount_ok(i) = !in_bad_zone(i, d_near(i)) && !in_bad_zone(i, d_far(i));
 bad_mount_labels = [for (i = [0:nbits-1]) if (!mount_ok(i)) lbl(i)];
 
 echo(str("Bin: ", GX, "x", GY, " @ ", unit.x, "mm cells x ", U, "u tall   outer ", outer, " mm"));
