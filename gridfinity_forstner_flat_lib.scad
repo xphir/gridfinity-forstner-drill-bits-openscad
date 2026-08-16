@@ -394,6 +394,14 @@ grip = 1.5;
 slot_flare = 1.2;
 // Minimum material left between two neighbouring seats
 rail_wall = 1.6;
+// How much narrower than the bit's own radius the retention pinch is, so
+// bits click into place instead of just resting loosely in clearance fit.
+// 0 = no pinch (a plain funnel, like before). Print a test swatch (see
+// [Testing]) to dial this in for your printer/filament -- too much and
+// bits won't seat, too little and there's no click.
+grip_pinch = 0.2;
+// How far above the seat's straight-walled cradle (grip) the pinch sits.
+grip_pinch_height = 1;
 
 
 /* [Bin] */
@@ -661,9 +669,15 @@ if (len(bad_mount_labels) > 0)
 //  Geometry
 // =============================================================================
 
-// a shaft seat: circular cradle, straight sides, then a funnel to the rail top
+// a shaft seat: straight-walled cradle at the bit's own diameter, a
+// retention pinch narrower than the bit (the "click"), then a funnel
+// back out to the rail top that eases inserting the bit in the first
+// place. grip_pinch = 0 collapses the pinch section to nothing, giving
+// the same plain funnel as before it existed.
 module seat(d) {
     r = d/2 + slot_clearance;
+    pinch_r = max(d/2 - grip_pinch, 0.1);
+    pinch_z = axis_z + grip + grip_pinch_height;
     rotate([0, 90, 0]) {
         hull() {
             translate([-axis_z, 0, 0])
@@ -674,6 +688,12 @@ module seat(d) {
         hull() {
             translate([-(axis_z + grip), 0, 0])
                 cylinder(r = r, h = rail_width + 4, center = true);
+            translate([-pinch_z, 0, 0])
+                cylinder(r = pinch_r, h = rail_width + 4, center = true);
+        }
+        hull() {
+            translate([-pinch_z, 0, 0])
+                cylinder(r = pinch_r, h = rail_width + 4, center = true);
             translate([-(rail_top + r + slot_flare), 0, 0])
                 cylinder(r = r + slot_flare, h = rail_width + 4, center = true);
         }
