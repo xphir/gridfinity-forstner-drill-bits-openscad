@@ -11,6 +11,8 @@ Gridfinity Forstner Bit Holder — Parametric, Fits Any Set
 
 ## Description
 
+<!-- IMAGE: photos/hero-1.jpg — two trays side by side, small-bit set + large-bit set -->
+
 A parametric Gridfinity tray for Forstner bits that actually fits *your*
 set — enter your bits' measurements (or pick a known preset) and it
 generates a custom holder sized exactly for them.
@@ -21,6 +23,8 @@ bits flat instead, alternating head-to-tail ("top and tail") so each bit's
 wide head sits next to a neighbour's narrow shaft. Two notched rails cradle
 each bit at its shaft, with a small retention pinch moulded into the seat
 so bits click in and stay put instead of rattling around.
+
+<!-- IMAGE: photos/above-small-bits.jpg — top-down shot showing the head-to-tail packing -->
 
 **Works with the MakerWorld parameter panel** — every field is a plain
 number or checkbox, no fiddly list editing required.
@@ -47,6 +51,8 @@ number or checkbox, no fiddly list editing required.
   baseplate, including half-size (21 mm) footprints for tighter packing.
 - **Auto-sized labels** engraved under each bit slot.
 
+<!-- IMAGE: photos/stacked.jpg — two trays stacked, illustrating a split large set -->
+
 ### How to use it
 
 1. Open the model in MakerWorld's parameter panel (or OpenSCAD's
@@ -65,12 +71,19 @@ project's [README](README.md) / on the [GitHub repo](https://github.com/xphir/gr
 
 ### Print settings
 
-- 0.2 mm layer height, 3+ walls, 15–20% infill is plenty (it's a tray, not
-  a structural part).
-- No supports needed.
-- If bits feel loose or too tight, reprint just the test coupon
-  (`test_bit`) while adjusting `slot_clearance` and `grip_pinch` rather
-  than the whole tray.
+<!-- IMAGE: photos/underside-half-grid.jpg — underside showing the Gridfinity base feet -->
+
+Printed and tested with: 0.4 mm nozzle, 0.2 mm layers, Arachne walls,
+3 wall loops, 15% gyroid infill, no supports needed. [Siddament Black
+PLA+](https://siddament.com.au/products/black-pla-1) worked well; any
+PLA/PLA+ should be fine.
+
+At the default `slot_clearance` (0.05 mm) bits click in and hold firmly —
+even fully upside down, nothing falls out — but they can be a little tight
+to pull back out. Try 0.1 mm if you'd rather have easier removal at the
+cost of a slightly less snug hold. Either way, check it with the
+`test_bit` coupon on your own printer before committing to a full tray —
+grip depends on your printer and filament.
 
 ### Credit
 
@@ -80,4 +93,14 @@ Base profile, stacking lip, and magnet/screw holes come from
 
 ### License
 
-MIT.
+The source (GitHub repo) is MIT. MakerWorld doesn't offer MIT as a listing
+license — it only offers Creative Commons-style toggles — so the closest
+equivalent there is:
+
+- Allow adaptations: **Yes**
+- Allow commercial use: **Yes**
+- Allow sharing without attribution: **No** (i.e. require attribution)
+
+That's the MakerWorld option set that best matches MIT's permissiveness
+(free to reuse/remix/sell) while keeping the one thing MIT actually
+requires — keeping credit attached.
