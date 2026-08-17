@@ -79,11 +79,13 @@ number or checkbox, no fiddly list editing required.
 3. Only `head_diameter` is required per bit — everything else falls back to
    sensible defaults you set once under **Bit defaults**.
 4. **Strongly recommended:** before printing the full tray, set `test_bit`
-   under **Testing** to a slot number and print that small coupon first —
-   it takes minutes, not hours, and lets you dial in `slot_clearance` /
-   `grip_pinch` for your printer and filament so the bits actually fit.
-5. Once the coupon fits the way you want, set `test_bit = 0` and print the
-   full tray.
+   under **Testing** to a slot number (or `test_all_bits` to print one
+   labelled coupon per enabled bit at once) and print that small coupon
+   first — it takes minutes, not hours, and lets you dial in
+   `slot_clearance` / `grip_pinch` for your printer and filament so the
+   bits actually fit.
+5. Once the coupon(s) fit the way you want, set `test_bit = 0` and
+   `test_all_bits = false`, then print the full tray.
 
 Full field-by-field reference and split-print guidance are on the
 [GitHub repo](https://github.com/xphir/gridfinity-forstner-drill-bits-openscad).

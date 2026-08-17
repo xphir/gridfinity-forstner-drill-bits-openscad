@@ -446,8 +446,10 @@ bit_20_mount_neck = false;
 
 
 /* [Testing] */
-// Render a small test swatch for just this bit's seats instead of the whole bin (ignores grid_x/grid_y/height_units/labels while active); 0 = off, full bin. 1-based slot number in the order slots appear (bit_01, bit_02, ...), skipping disabled ones, not sorted layout order.
+// Render a small test swatch for just this bit's seats instead of the whole bin (ignores grid_x/grid_y/height_units/labels while active, and is ignored itself if test_all_bits is on); 0 = off, full bin. 1-based slot number in the order slots appear (bit_01, bit_02, ...), skipping disabled ones, not sorted layout order.
 test_bit = 0;
+// Render one small test swatch per enabled bit, side by side on one plate, each labelled -- lets you test-fit every bit at once instead of one at a time. Overrides test_bit above while on.
+test_all_bits = false;
 
 
 // =============================================================================
@@ -791,15 +793,9 @@ module holder() {
 
 // a small printable coupon: a short strip of both rails with one bit's
 // two seats cut in, for test-fitting grip_pinch/slot_clearance without
-// printing the whole bin. See test_bit in [Testing].
-module test_swatch() {
-    // test_bit counts enabled bits in the order their slots appear
-    // (bit_01, bit_02, ...), not sorted (largest-first) layout order, since
-    // that's how they're numbered/labelled in the Customizer. order[]
-    // maps sorted position -> original position, so find the sorted
-    // position whose order[] entry matches the slot the user asked for.
-    j = min(max(test_bit, 1), nbits) - 1;
-    i = [for (k = [0:nbits-1]) if (order[k] == j) k][0];
+// printing the whole bin. i is a sorted-layout-order index (0-based), same
+// as dL()/dR()/lbl() etc. See test_bit / test_all_bits in [Testing].
+module test_swatch(i) {
     pad = 10;
     // no sideways overhang -- an upside-down Pi/U shape: the connecting
     // base spans exactly rail-to-rail, nothing sticking out past the legs
@@ -830,11 +826,38 @@ module test_swatch() {
             translate([-G/2, 0, 0]) seat(dL(i));
             translate([ G/2, 0, 0]) seat(dR(i));
         }
+        if (lbl(i) != "")
+            translate([0, 0, base_h - label_depth])
+                linear_extrude(label_depth + EPS)
+                    text(lbl(i), size = label_size, halign = "center",
+                         valign = "center");
     }
 }
 
-if (test_bit > 0)
-    test_swatch();
+// test_bit counts enabled bits in the order their slots appear (bit_01,
+// bit_02, ...), not sorted (largest-first) layout order, since that's how
+// they're numbered/labelled in the Customizer. order[] maps sorted
+// position -> original position, so find the sorted position whose
+// order[] entry matches the slot the user asked for.
+function test_bit_index(n) =
+    let (j = min(max(n, 1), nbits) - 1)
+    [for (k = [0:nbits-1]) if (order[k] == j) k][0];
+
+// one swatch per enabled bit, side by side (uniform spacing: rail spacing
+// G, and so swatch width, is shared across every bit).
+module test_all_swatches() {
+    sx = G + rail_width;
+    gap = 5;
+    pitch = sx + gap;
+    for (k = [0:nbits-1])
+        translate([-((nbits - 1) * pitch) / 2 + k * pitch, 0, 0])
+            test_swatch(k);
+}
+
+if (test_all_bits)
+    test_all_swatches();
+else if (test_bit > 0)
+    test_swatch(test_bit_index(test_bit));
 else if (section_view)
     difference() {
         holder();
