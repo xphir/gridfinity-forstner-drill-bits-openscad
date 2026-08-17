@@ -33,7 +33,7 @@ Open `gridfinity_forstner_flat_lib.scad` in [OpenSCAD](https://openscad.org/).
 
 ## Usage
 
-The bit list is up to 20 slots (`bit01_*` through `bit20_*`), each with its
+The bit list is up to 20 slots (`bit_01_*` through `bit_20_*`), each with its
 own `enabled` checkbox — flip a slot on and fill in its dimensions to add a
 bit, or leave it off to skip it. All dimensions are in mm, measured from the
 head end downwards, five sections per bit:
