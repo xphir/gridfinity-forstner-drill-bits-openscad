@@ -448,7 +448,7 @@ bit_20_mount_neck = false;
 /* [Testing] */
 // Render a small test swatch for just this bit's seats instead of the whole bin (ignores grid_x/grid_y/height_units/labels while active, and is ignored itself if test_all_bits is on); 0 = off, full bin. 1-based slot number in the order slots appear (bit_01, bit_02, ...), skipping disabled ones, not sorted layout order.
 test_bit = 0;
-// Render one small test swatch per enabled bit, side by side on one plate, each labelled -- lets you test-fit every bit at once instead of one at a time. Overrides test_bit above while on.
+// Render one connected, height-reduced rail strip covering every enabled bit at its real spacing, each labelled -- tests the whole set's fit (including bit-to-bit spacing) in one quick print. Overrides test_bit above while on.
 test_all_bits = false;
 
 
@@ -843,19 +843,45 @@ function test_bit_index(n) =
     let (j = min(max(n, 1), nbits) - 1)
     [for (k = [0:nbits-1]) if (order[k] == j) k][0];
 
-// one swatch per enabled bit, side by side (uniform spacing: rail spacing
-// G, and so swatch width, is shared across every bit).
-module test_all_swatches() {
+// one connected strip covering every enabled bit at its real cy(i)
+// position -- the same rail spacing/pitch the full bin would use -- just
+// height-reduced like test_swatch(), so the whole set's fit (including
+// bit-to-bit spacing) can be checked in one quick print instead of one
+// bit at a time. See test_all_bits in [Testing].
+module test_all_swatch() {
+    pad = 10;
     sx = G + rail_width;
-    gap = 5;
-    pitch = sx + gap;
-    for (k = [0:nbits-1])
-        translate([-((nbits - 1) * pitch) / 2 + k * pitch, 0, 0])
-            test_swatch(k);
+    sy = (y_hi - y_lo) + 2*pad;
+    base_h = 2;
+    full_leg_h = rail_top - floor_z;
+    min_leg_h  = (rail_top - axis_z) + 2;
+    leg_h = max(full_leg_h / 2, min_leg_h);
+    shift = (rail_top - leg_h) - base_h;
+    difference() {
+        union() {
+            translate([-sx/2, -sy/2, 0])
+                cube([sx, sy, base_h]);
+            translate([0, 0, -shift])
+            for (x = [-G/2, G/2])
+                translate([x - rail_width/2, -sy/2, rail_top - leg_h - EPS])
+                    cube([rail_width, sy, leg_h + EPS]);
+        }
+        translate([0, 0, -shift])
+        for (i = [0:nbits-1]) {
+            translate([-G/2, cy(i), 0]) seat(dL(i));
+            translate([ G/2, cy(i), 0]) seat(dR(i));
+        }
+        for (i = [0:nbits-1])
+            if (lbl(i) != "")
+                translate([0, cy(i), base_h - label_depth])
+                    linear_extrude(label_depth + EPS)
+                        text(lbl(i), size = label_size, halign = "center",
+                             valign = "center");
+    }
 }
 
 if (test_all_bits)
-    test_all_swatches();
+    test_all_swatch();
 else if (test_bit > 0)
     test_swatch(test_bit_index(test_bit));
 else if (section_view)
