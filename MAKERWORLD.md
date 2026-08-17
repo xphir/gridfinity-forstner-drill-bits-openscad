@@ -73,9 +73,10 @@ number or checkbox, no fiddly list editing required.
 1. Hit **Customise** on the print page (or open it in OpenSCAD's
    Customizer for the full experience).
 2. Either pick a **Preset** (e.g. VEVOR 16 Pcs) and just toggle
-   **Enabled bits**, or leave Preset on `Custom` and fill in your own
-   bits' measurements under **Bit list**.
-3. Only `head_dia` is required per bit — everything else falls back to
+   **Enabled bits**, or leave Preset on `None` and fill in your own bits'
+   measurements under **Bit list** (it ships with a 5-bit generic example
+   to start from).
+3. Only `head_diameter` is required per bit — everything else falls back to
    sensible defaults you set once under **Bit defaults**.
 4. **Strongly recommended:** before printing the full tray, set `test_bit`
    under **Testing** to a slot number and print that small coupon first —

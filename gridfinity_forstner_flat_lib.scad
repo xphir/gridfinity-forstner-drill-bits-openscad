@@ -63,8 +63,8 @@ use <gridfinity-rebuilt-openscad/src/core/gridfinity-rebuilt-utility.scad>
 // =============================================================================
 
 /* [Preset] */
-// Loads a known bit set's sizes into the fields below (slot 1 = the preset's first bit, etc.), overriding whatever is typed there; Enabled bits below still controls what's included. Custom = edit the fields yourself.
-preset = "custom"; // [custom:Custom, vevor16:VEVOR 16 Pcs Forstner Bit Set]
+// Loads a known bit set's sizes into the fields below (slot 1 = the preset's first bit, etc.), overriding whatever is typed there; Enabled bits below still controls what's included. None = edit the fields yourself.
+preset = "none"; // [none:None, vevor16:VEVOR 16 Pcs Forstner Bit Set]
 
 
 /* [Layout] */
@@ -165,17 +165,17 @@ bit_02_enabled = true;
 bit_03_enabled = true;
 bit_04_enabled = true;
 bit_05_enabled = true;
-bit_06_enabled = true;
-bit_07_enabled = true;
-bit_08_enabled = true;
-bit_09_enabled = true;
-bit_10_enabled = true;
-bit_11_enabled = true;
-bit_12_enabled = true;
-bit_13_enabled = true;
-bit_14_enabled = true;
-bit_15_enabled = true;
-bit_16_enabled = true;
+bit_06_enabled = false;
+bit_07_enabled = false;
+bit_08_enabled = false;
+bit_09_enabled = false;
+bit_10_enabled = false;
+bit_11_enabled = false;
+bit_12_enabled = false;
+bit_13_enabled = false;
+bit_14_enabled = false;
+bit_15_enabled = false;
+bit_16_enabled = false;
 bit_17_enabled = false;
 bit_18_enabled = false;
 bit_19_enabled = false;
@@ -185,211 +185,211 @@ bit_20_enabled = false;
 /* [Bit list] */
 
 // Bit 01: dimensions in mm; 0 = use Bit defaults, except head_diameter; ignored for slots a Preset already covers.
-bit_01_head_diameter = 6;
-bit_01_head_length = 8;
-bit_01_neck_diameter = 4.75;
-bit_01_neck_length = 15;
-bit_01_body_diameter = 5.55;
-bit_01_body_length = 35;
+bit_01_head_diameter = 10;
+bit_01_head_length = 0;
+bit_01_neck_diameter = 0;
+bit_01_neck_length = 0;
+bit_01_body_diameter = 0;
+bit_01_body_length = 0;
 bit_01_waist_diameter = 0;
-bit_01_waist_length = 2;
-bit_01_base_diameter = 9.55;
-bit_01_base_length = 30;
-bit_01_mount_neck = true;
+bit_01_waist_length = 0;
+bit_01_base_diameter = 0;
+bit_01_base_length = 0;
+bit_01_mount_neck = false;
 
 // Bit 02
-bit_02_head_diameter = 9;
-bit_02_head_length = 12;
-bit_02_neck_diameter = 6;
-bit_02_neck_length = 15;
-bit_02_body_diameter = 8;
-bit_02_body_length = 30;
+bit_02_head_diameter = 15;
+bit_02_head_length = 0;
+bit_02_neck_diameter = 0;
+bit_02_neck_length = 0;
+bit_02_body_diameter = 0;
+bit_02_body_length = 0;
 bit_02_waist_diameter = 0;
-bit_02_waist_length = 3;
-bit_02_base_diameter = 9.55;
-bit_02_base_length = 30;
-bit_02_mount_neck = true;
+bit_02_waist_length = 0;
+bit_02_base_diameter = 0;
+bit_02_base_length = 0;
+bit_02_mount_neck = false;
 
 // Bit 03
-bit_03_head_diameter = 12;
-bit_03_head_length = 12;
-bit_03_neck_diameter = 6;
-bit_03_neck_length = 15;
-bit_03_body_diameter = 8;
-bit_03_body_length = 30;
+bit_03_head_diameter = 20;
+bit_03_head_length = 0;
+bit_03_neck_diameter = 0;
+bit_03_neck_length = 0;
+bit_03_body_diameter = 0;
+bit_03_body_length = 0;
 bit_03_waist_diameter = 0;
-bit_03_waist_length = 3;
-bit_03_base_diameter = 9.55;
-bit_03_base_length = 30;
-bit_03_mount_neck = true;
+bit_03_waist_length = 0;
+bit_03_base_diameter = 0;
+bit_03_base_length = 0;
+bit_03_mount_neck = false;
 
 // Bit 04
-bit_04_head_diameter = 15;
+bit_04_head_diameter = 25;
 bit_04_head_length = 0;
 bit_04_neck_diameter = 0;
 bit_04_neck_length = 0;
-bit_04_body_diameter = 9.85;
-bit_04_body_length = 45;
+bit_04_body_diameter = 0;
+bit_04_body_length = 0;
 bit_04_waist_diameter = 0;
 bit_04_waist_length = 0;
-bit_04_base_diameter = 7.94;
-bit_04_base_length = 30;
+bit_04_base_diameter = 0;
+bit_04_base_length = 0;
 bit_04_mount_neck = false;
 
 // Bit 05
-bit_05_head_diameter = 16;
+bit_05_head_diameter = 30;
 bit_05_head_length = 0;
 bit_05_neck_diameter = 0;
 bit_05_neck_length = 0;
-bit_05_body_diameter = 9.52;
-bit_05_body_length = 45;
+bit_05_body_diameter = 0;
+bit_05_body_length = 0;
 bit_05_waist_diameter = 0;
 bit_05_waist_length = 0;
-bit_05_base_diameter = 9.52;
-bit_05_base_length = 30;
+bit_05_base_diameter = 0;
+bit_05_base_length = 0;
 bit_05_mount_neck = false;
 
 // Bit 06
-bit_06_head_diameter = 19;
+bit_06_head_diameter = 10;
 bit_06_head_length = 0;
 bit_06_neck_diameter = 0;
 bit_06_neck_length = 0;
-bit_06_body_diameter = 9.52;
-bit_06_body_length = 45;
+bit_06_body_diameter = 0;
+bit_06_body_length = 0;
 bit_06_waist_diameter = 0;
 bit_06_waist_length = 0;
-bit_06_base_diameter = 9.52;
-bit_06_base_length = 30;
+bit_06_base_diameter = 0;
+bit_06_base_length = 0;
 bit_06_mount_neck = false;
 
 // Bit 07
-bit_07_head_diameter = 20;
+bit_07_head_diameter = 10;
 bit_07_head_length = 0;
 bit_07_neck_diameter = 0;
 bit_07_neck_length = 0;
-bit_07_body_diameter = 9.85;
-bit_07_body_length = 45;
+bit_07_body_diameter = 0;
+bit_07_body_length = 0;
 bit_07_waist_diameter = 0;
 bit_07_waist_length = 0;
-bit_07_base_diameter = 7.94;
-bit_07_base_length = 30;
+bit_07_base_diameter = 0;
+bit_07_base_length = 0;
 bit_07_mount_neck = false;
 
-// Bit 08 (duplicate 20mm row, entered as given)
-bit_08_head_diameter = 20;
+// Bit 08
+bit_08_head_diameter = 10;
 bit_08_head_length = 0;
 bit_08_neck_diameter = 0;
 bit_08_neck_length = 0;
-bit_08_body_diameter = 9.85;
-bit_08_body_length = 45;
+bit_08_body_diameter = 0;
+bit_08_body_length = 0;
 bit_08_waist_diameter = 0;
 bit_08_waist_length = 0;
-bit_08_base_diameter = 7.94;
-bit_08_base_length = 30;
+bit_08_base_diameter = 0;
+bit_08_base_length = 0;
 bit_08_mount_neck = false;
 
 // Bit 09
-bit_09_head_diameter = 25;
+bit_09_head_diameter = 10;
 bit_09_head_length = 0;
 bit_09_neck_diameter = 0;
 bit_09_neck_length = 0;
-bit_09_body_diameter = 12.0;
-bit_09_body_length = 45;
+bit_09_body_diameter = 0;
+bit_09_body_length = 0;
 bit_09_waist_diameter = 0;
 bit_09_waist_length = 0;
-bit_09_base_diameter = 7.94;
-bit_09_base_length = 30;
+bit_09_base_diameter = 0;
+bit_09_base_length = 0;
 bit_09_mount_neck = false;
 
 // Bit 10
-bit_10_head_diameter = 28;
+bit_10_head_diameter = 10;
 bit_10_head_length = 0;
 bit_10_neck_diameter = 0;
 bit_10_neck_length = 0;
-bit_10_body_diameter = 12.0;
-bit_10_body_length = 45;
+bit_10_body_diameter = 0;
+bit_10_body_length = 0;
 bit_10_waist_diameter = 0;
 bit_10_waist_length = 0;
-bit_10_base_diameter = 9.52;
-bit_10_base_length = 30;
+bit_10_base_diameter = 0;
+bit_10_base_length = 0;
 bit_10_mount_neck = false;
 
 // Bit 11
-bit_11_head_diameter = 30;
+bit_11_head_diameter = 10;
 bit_11_head_length = 0;
 bit_11_neck_diameter = 0;
 bit_11_neck_length = 0;
-bit_11_body_diameter = 12.0;
-bit_11_body_length = 45;
+bit_11_body_diameter = 0;
+bit_11_body_length = 0;
 bit_11_waist_diameter = 0;
 bit_11_waist_length = 0;
-bit_11_base_diameter = 7.94;
-bit_11_base_length = 30;
+bit_11_base_diameter = 0;
+bit_11_base_length = 0;
 bit_11_mount_neck = false;
 
 // Bit 12
-bit_12_head_diameter = 32;
+bit_12_head_diameter = 10;
 bit_12_head_length = 0;
 bit_12_neck_diameter = 0;
 bit_12_neck_length = 0;
-bit_12_body_diameter = 12.0;
-bit_12_body_length = 45;
+bit_12_body_diameter = 0;
+bit_12_body_length = 0;
 bit_12_waist_diameter = 0;
 bit_12_waist_length = 0;
-bit_12_base_diameter = 9.52;
-bit_12_base_length = 30;
+bit_12_base_diameter = 0;
+bit_12_base_length = 0;
 bit_12_mount_neck = false;
 
 // Bit 13
-bit_13_head_diameter = 35;
+bit_13_head_diameter = 10;
 bit_13_head_length = 0;
 bit_13_neck_diameter = 0;
 bit_13_neck_length = 0;
-bit_13_body_diameter = 12.0;
-bit_13_body_length = 45;
+bit_13_body_diameter = 0;
+bit_13_body_length = 0;
 bit_13_waist_diameter = 0;
 bit_13_waist_length = 0;
-bit_13_base_diameter = 9.52;
-bit_13_base_length = 30;
+bit_13_base_diameter = 0;
+bit_13_base_length = 0;
 bit_13_mount_neck = false;
 
 // Bit 14
-bit_14_head_diameter = 38;
+bit_14_head_diameter = 10;
 bit_14_head_length = 0;
 bit_14_neck_diameter = 0;
 bit_14_neck_length = 0;
-bit_14_body_diameter = 12.0;
-bit_14_body_length = 45;
+bit_14_body_diameter = 0;
+bit_14_body_length = 0;
 bit_14_waist_diameter = 0;
 bit_14_waist_length = 0;
-bit_14_base_diameter = 9.52;
-bit_14_base_length = 30;
+bit_14_base_diameter = 0;
+bit_14_base_length = 0;
 bit_14_mount_neck = false;
 
 // Bit 15
-bit_15_head_diameter = 40;
+bit_15_head_diameter = 10;
 bit_15_head_length = 0;
 bit_15_neck_diameter = 0;
 bit_15_neck_length = 0;
-bit_15_body_diameter = 12.0;
-bit_15_body_length = 45;
+bit_15_body_diameter = 0;
+bit_15_body_length = 0;
 bit_15_waist_diameter = 0;
 bit_15_waist_length = 0;
-bit_15_base_diameter = 9.52;
-bit_15_base_length = 30;
+bit_15_base_diameter = 0;
+bit_15_base_length = 0;
 bit_15_mount_neck = false;
 
 // Bit 16
-bit_16_head_diameter = 41;
+bit_16_head_diameter = 10;
 bit_16_head_length = 0;
 bit_16_neck_diameter = 0;
 bit_16_neck_length = 0;
-bit_16_body_diameter = 12.0;
-bit_16_body_length = 45;
+bit_16_body_diameter = 0;
+bit_16_body_length = 0;
 bit_16_waist_diameter = 0;
 bit_16_waist_length = 0;
-bit_16_base_diameter = 9.52;
-bit_16_base_length = 30;
+bit_16_base_diameter = 0;
+bit_16_base_length = 0;
 bit_16_mount_neck = false;
 
 // Bit 17
@@ -468,7 +468,7 @@ $fn = 64;
 // [head_diameter, head_length, neck_diameter, neck_length, body_diameter, body_length, waist_diameter,
 // waist_length, base_diameter, base_length, mount_neck] -- the same ten dimensions
 // plus mountN as a bit's own fields, just in one internal table instead
-// of scattered across 11 customizer fields each. Returns [] for "custom"
+// of scattered across 11 customizer fields each. Returns [] for "none"
 // (and any unrecognised name), meaning "use the individual fields".
 function preset_bits(name) =
     name == "vevor16" ? [
@@ -511,7 +511,7 @@ _field_mount_neck = [bit_01_mount_neck, bit_02_mount_neck, bit_03_mount_neck, bi
 
 // A preset only supplies SIZES, one row per slot in order (slot i gets
 // preset row i) -- it does not touch enabled/disabled at all. Slots
-// beyond the preset's length (or every slot, once "custom" is selected)
+// beyond the preset's length (or every slot, once "none" is selected)
 // keep using their own field values. Either way, "Enabled bits" above is
 // what actually decides which slots are included.
 function overlay(field, col) = [for (i = [0:19]) i < _preset_length ? _preset[i][col] : field[i]];

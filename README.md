@@ -35,25 +35,28 @@ Open `gridfinity_forstner_flat_lib.scad` in [OpenSCAD](https://openscad.org/).
 
 The bit list is up to 20 slots (`bit_01_*` through `bit_20_*`), each with its
 own `enabled` checkbox — flip a slot on and fill in its dimensions to add a
-bit, or leave it off to skip it. All dimensions are in mm, measured from the
-head end downwards, five sections per bit:
+bit, or leave it off to skip it. Out of the box, only 5 slots are enabled
+with generic round sizes (10/15/20/25/30 mm) as a working example — replace
+them with your own measurements, or load a known set via **Preset**. All
+dimensions are in mm, measured from the head end downwards, five sections
+per bit:
 
-- `head_dia` / `head_len` — the cutting head, the widest part
-- `neck_dia` / `neck_len` — short narrow transition right below the head
-- `body_dia` / `body_len` — the main shaft (most of the bit's length)
-- `waist_dia` / `waist_len` — narrow retention groove just above the shank
-- `base_dia` / `base_len` — the shank that goes in the chuck
+- `head_diameter` / `head_length` — the cutting head, the widest part
+- `neck_diameter` / `neck_length` — short narrow transition right below the head
+- `body_diameter` / `body_length` — the main shaft (most of the bit's length)
+- `waist_diameter` / `waist_length` — narrow retention groove just above the shank
+- `base_diameter` / `base_length` — the shank that goes in the chuck
 
 ![Small Forstner bit segments labelled: head, neck, body, waist, base](photos/small-bit-labeled.png)
 ![Large Forstner bit segments labelled: head, body, waist, base](photos/large-bit-labeled.png)
 
-Only `head_dia` needs a value on every enabled bit. Everything else defaults
-to `0`, which means "use the matching `default_head_len` / `default_body_dia`
-/ etc. value" in the **Bit defaults** section — handy since most forstner
-sets share the same head length and shank across many sizes. Give a bit a
-non-zero value in any of those fields to override the default just for that
-one bit (e.g. if its shaft is a single constant diameter, set that bit's
-`base_dia` equal to its `body_dia`).
+Only `head_diameter` needs a value on every enabled bit. Everything else
+defaults to `0`, which means "use the matching `default_head_length` /
+`default_body_diameter` / etc. value" in the **Bit defaults** section —
+handy since most forstner sets share the same head length and shank across
+many sizes. Give a bit a non-zero value in any of those fields to override
+the default just for that one bit (e.g. if its shaft is a single constant
+diameter, set that bit's `base_diameter` equal to its `body_diameter`).
 
 Each bit also has a `mountN` field (`false` = body, `true` = neck), which
 picks which of those two diameters actually grips that bit's rails. Most
@@ -81,7 +84,7 @@ The **Preset** dropdown can load a known set's measurements into the bit
 fields for you (currently just the VEVOR 16-piece set). A preset only fills
 in *sizes* — one preset row per slot — it never touches the `enabled`
 checkboxes, so you can still turn individual slots on/off same as with a
-hand-entered list. Pick `Custom` to go back to editing the fields yourself.
+hand-entered list. Pick `None` to go back to editing the fields yourself.
 
 ### Splitting a large set across multiple prints
 
