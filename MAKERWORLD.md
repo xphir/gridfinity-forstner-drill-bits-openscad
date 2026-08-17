@@ -41,7 +41,7 @@ so bits click in and stay put instead of rattling around.
 
 <!-- IMAGE: photos/above-small-bits.jpg — top-down shot showing the head-to-tail packing -->
 
-**Works with the MakerWorld parameter panel** — every field is a plain
+**Works with MakerWorld's Customise button** — every field is a plain
 number or checkbox, no fiddly list editing required.
 
 ### Features
@@ -70,19 +70,22 @@ number or checkbox, no fiddly list editing required.
 
 ### How to use it
 
-1. Open the model in MakerWorld's parameter panel (or OpenSCAD's
+1. Hit **Customise** on the print page (or open it in OpenSCAD's
    Customizer for the full experience).
 2. Either pick a **Preset** (e.g. VEVOR 16 Pcs) and just toggle
    **Enabled bits**, or leave Preset on `Custom` and fill in your own
    bits' measurements under **Bit list**.
 3. Only `head_dia` is required per bit — everything else falls back to
    sensible defaults you set once under **Bit defaults**.
-4. Optional: set `test_bit` under **Testing** to a slot number first and
-   print that small coupon to check the fit before printing the full tray.
-5. Render and print the full tray (`test_bit = 0`).
+4. **Strongly recommended:** before printing the full tray, set `test_bit`
+   under **Testing** to a slot number and print that small coupon first —
+   it takes minutes, not hours, and lets you dial in `slot_clearance` /
+   `grip_pinch` for your printer and filament so the bits actually fit.
+5. Once the coupon fits the way you want, set `test_bit = 0` and print the
+   full tray.
 
-Full field-by-field reference and split-print guidance are in the
-project's [README](README.md) / on the [GitHub repo](https://github.com/xphir/gridfinity-forstner-drill-bits-openscad).
+Full field-by-field reference and split-print guidance are on the
+[GitHub repo](https://github.com/xphir/gridfinity-forstner-drill-bits-openscad).
 
 ### Print settings
 
@@ -113,12 +116,4 @@ on Printables.
 
 The source (GitHub repo) is MIT. MakerWorld doesn't offer MIT as a listing
 license — it only offers Creative Commons-style toggles — so the closest
-equivalent there is:
-
-- Allow adaptations: **Yes**
-- Allow commercial use: **Yes**
-- Allow sharing without attribution: **No** (i.e. require attribution)
-
-That's the MakerWorld option set that best matches MIT's permissiveness
-(free to reuse/remix/sell) while keeping the one thing MIT actually
-requires — keeping credit attached.
+equivalent there is CC-BY.
