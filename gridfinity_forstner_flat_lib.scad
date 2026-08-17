@@ -104,42 +104,42 @@ bit20_enabled = false;
 
 // -- Bit 01 --
 bit01_head_dia  = 6;
-bit01_head_len  = 0;
-bit01_neck_dia  = 0;
-bit01_neck_len  = 0;
-bit01_body_dia  = 5.56;
-bit01_body_len  = 41;
+bit01_head_len  = 8;
+bit01_neck_dia  = 4.75;
+bit01_neck_len  = 15;
+bit01_body_dia  = 5.55;
+bit01_body_len  = 35;
 bit01_waist_dia = 0;
-bit01_waist_len = 0;
-bit01_base_dia  = 9.52;
-bit01_base_len  = 34;
-bit01_mount_neck = false;
+bit01_waist_len = 2;
+bit01_base_dia  = 9.55;
+bit01_base_len  = 30;
+bit01_mount_neck = true;
 
 // -- Bit 02 --
 bit02_head_dia  = 9;
-bit02_head_len  = 0;
-bit02_neck_dia  = 0;
-bit02_neck_len  = 0;
-bit02_body_dia  = 7.94;
-bit02_body_len  = 41;
+bit02_head_len  = 12;
+bit02_neck_dia  = 6;
+bit02_neck_len  = 15;
+bit02_body_dia  = 8;
+bit02_body_len  = 30;
 bit02_waist_dia = 0;
-bit02_waist_len = 0;
-bit02_base_dia  = 9.52;
-bit02_base_len  = 34;
-bit02_mount_neck = false;
+bit02_waist_len = 3;
+bit02_base_dia  = 9.55;
+bit02_base_len  = 30;
+bit02_mount_neck = true;
 
 // -- Bit 03 --
 bit03_head_dia  = 12;
-bit03_head_len  = 0;
-bit03_neck_dia  = 0;
-bit03_neck_len  = 0;
-bit03_body_dia  = 7.94;
-bit03_body_len  = 41;
+bit03_head_len  = 12;
+bit03_neck_dia  = 6;
+bit03_neck_len  = 15;
+bit03_body_dia  = 8;
+bit03_body_len  = 30;
 bit03_waist_dia = 0;
-bit03_waist_len = 0;
-bit03_base_dia  = 9.52;
-bit03_base_len  = 34;
-bit03_mount_neck = false;
+bit03_waist_len = 3;
+bit03_base_dia  = 9.55;
+bit03_base_len  = 30;
+bit03_mount_neck = true;
 
 // -- Bit 04 --
 bit04_head_dia  = 15;
