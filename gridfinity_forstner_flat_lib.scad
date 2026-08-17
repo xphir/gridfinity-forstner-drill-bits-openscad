@@ -70,9 +70,9 @@ use <gridfinity-rebuilt-openscad/src/core/gridfinity-rebuilt-utility.scad>
 preset = "custom"; // [custom:Custom, vevor16:VEVOR 16 Pcs Forstner Bit Set]
 
 /* [Bit defaults] */
-// Used by any bit below that leaves its own head_len/neck_dia/neck_len/
-// body_dia/body_len/waist_dia/waist_len/base_dia/base_len at 0. Does not
-// apply to head_dia -- that always comes from the bit's own field.
+// All values in mm. Fallback used by any bit below that leaves its own
+// matching field at 0 -- does not apply to head_dia, which always comes
+// from the bit's own field.
 default_head_len  = 15;
 default_neck_dia  = 8;
 default_neck_len  = 0;
@@ -109,6 +109,8 @@ bit19_enabled = false;
 bit20_enabled = false;
 
 /* [Bit list] */
+// Dimension fields (in mm). 0 = use the matching default_* value above
+// (see [Bit defaults]) -- except head_dia, always read directly.
 
 // -- Bit 01 --
 bit01_head_dia  = 6;
@@ -372,6 +374,7 @@ bit20_mount_neck = false;
 
 
 /* [Layout] */
+// Distances below are in mm.
 
 // Reverse every second bit (top and tail). Off = all heads the same end.
 alternate = true;
@@ -387,6 +390,7 @@ head_floor_gap = 2;
 
 
 /* [Rails] */
+// Distances below are in mm.
 
 // Distance between the two rails. 0 = auto (as far apart as the bits allow).
 rail_gap = 0;
@@ -425,11 +429,11 @@ grid_y = 0;
 allow_half_units = false;
 // Height in gridfinity units (7 mm each). 0 = auto.
 height_units = 0;
-// Extra floor on top of the library's 7 mm base. Usually leave at 0.
+// Extra floor (mm) on top of the library's 7 mm base. Usually leave at 0.
 // If include_lip is off, this MUST be > 0 -- without a lip the library
 // builds the outer wall from the infill, so a zero-infill bin has no walls.
 extra_floor = 0;
-// Air above the tallest bit. Only used when height_units = 0 (auto).
+// Air above the tallest bit (mm). Only used when height_units = 0 (auto).
 top_clearance = 2;
 
 // Stacking lip around the top rim, so another bin can stack on this one.
@@ -458,10 +462,10 @@ only_corners = false;
 /* [Labels] */
 // Engrave each bit's label (from the bit list) into the floor under it.
 labels = true;
-// Text height. Only has an effect if labels is on.
+// Text height (mm). Only has an effect if labels is on.
 label_size = 5;
-// How deep the text is cut into the floor. Only has an effect if labels
-// is on.
+// How deep the text is cut into the floor (mm). Only has an effect if
+// labels is on.
 label_depth = 0.6;
 
 
