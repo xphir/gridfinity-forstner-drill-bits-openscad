@@ -387,7 +387,7 @@ rail_width = 6;
 // Keep the rail at least this far clear of the back of the head
 rail_margin = 1.5;
 // Extra radius added to every seat so bits aren't a dead-tight press fit.
-slot_clearance = 0.3;
+slot_clearance = 0.05;
 // How far the seat continues straight up past the shaft centreline
 grip = 1.5;
 // Funnel widening at the mouth of each seat
@@ -600,7 +600,10 @@ floor_z  = BASE_HEIGHT + max(extra_floor, 0);
 max_head = max([for (i = [0:nbits-1]) hd(i)]);
 // one centreline height for every bit, so they all lie level
 axis_z   = floor_z + max_head/2 + head_floor_gap;
-rail_top = axis_z + grip + 0.8;
+// must clear the pinch (axis_z + grip + grip_pinch_height, see seat())
+// with a bit of margin, or the pinch ends up above the rail's actual top
+// surface -- no material left there to squeeze against, so it does nothing.
+rail_top = axis_z + grip + grip_pinch_height + 0.8;
 
 max_len  = max([for (i = [0:nbits-1]) bitlen(i)]);
 need_x   = max_len + 2*end_gap;
