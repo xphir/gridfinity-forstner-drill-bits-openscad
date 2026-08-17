@@ -7,7 +7,22 @@ this is just where the listing text lives so it's versioned with the model.
 
 ## Title
 
-Gridfinity Forstner Bit Holder — Parametric, Fits Any Set
+Gridfinity Forstner Bit Holder (Parametric)
+
+(43 chars — MakerWorld's model name field caps out at 50.)
+
+## Category
+
+Organizers
+
+## Tags
+
+- parametric
+- customisable
+- gridfinity
+- forstner bit
+- bit
+- tool
 
 ## Description
 
