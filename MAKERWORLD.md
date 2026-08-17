@@ -89,7 +89,11 @@ Full field-by-field reference and split-print guidance are on the
 
 ### Print settings
 
-<!-- IMAGE: photos/underside-half-grid.jpg — underside showing the Gridfinity base feet -->
+<!-- IMAGE: photos/underside-half-grid.jpg — underside showing the half-grid Gridfinity base feet -->
+
+My prints used the `allow_half_units` half-grid (21 mm) base — it dropped
+the footprint from 3x4 grids to 2.5x4 for the same bits, a noticeably more
+compact tray. Still snaps onto a standard Gridfinity baseplate.
 
 Printed and tested with: 0.4 mm nozzle, 0.2 mm layers, Arachne walls,
 3 wall loops, 15% gyroid infill, no supports needed. [Siddament Black
