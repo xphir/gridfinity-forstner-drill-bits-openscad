@@ -1,0 +1,83 @@
+# MakerWorld listing description
+
+Copy/paste source for the MakerWorld listing. Not linked from the README —
+this is just where the listing text lives so it's versioned with the model.
+
+---
+
+## Title
+
+Gridfinity Forstner Bit Holder — Parametric, Fits Any Set
+
+## Description
+
+A parametric Gridfinity tray for Forstner bits that actually fits *your*
+set — enter your bits' measurements (or pick a known preset) and it
+generates a custom holder sized exactly for them.
+
+Forstner bits don't stack neatly like twist drills: the head is much wider
+than the shank, so upright holders waste a ton of space. This tray lays
+bits flat instead, alternating head-to-tail ("top and tail") so each bit's
+wide head sits next to a neighbour's narrow shaft. Two notched rails cradle
+each bit at its shaft, with a small retention pinch moulded into the seat
+so bits click in and stay put instead of rattling around.
+
+**Works with the MakerWorld parameter panel** — every field is a plain
+number or checkbox, no fiddly list editing required.
+
+### Features
+
+- **Fits any Forstner set** — describe up to 20 bits (diameter + length for
+  head/neck/body/waist/shank) and the tray sizes itself automatically.
+- **Built-in preset** — the VEVOR 16-piece Forstner set is included as a
+  one-click preset; just toggle which sizes you actually own.
+- **Real retention grip** — a moulded pinch in each rail seat, not just a
+  funnel, so bits hold with a light click instead of sliding loose.
+- **Handles odd bit shapes** — some bits have a thin "neck" between head
+  and shaft that's too short to grip normally; a per-bit switch lets you
+  choose whether the rail grips the neck or the main body, with a warning
+  if a bit's geometry won't work with either.
+- **Test coupon mode** — render a small single-bit test piece instead of
+  the full tray so you can dial in clearance/grip for your printer and
+  filament before committing to a long print.
+- **Split large sets across multiple prints** — rail spacing is tuned to
+  the enabled bits, so a 16+ bit set prints better as two trays than one
+  stretched-out tray.
+- **Gridfinity-native base** — snaps onto any standard Gridfinity
+  baseplate, including half-size (21 mm) footprints for tighter packing.
+- **Auto-sized labels** engraved under each bit slot.
+
+### How to use it
+
+1. Open the model in MakerWorld's parameter panel (or OpenSCAD's
+   Customizer for the full experience).
+2. Either pick a **Preset** (e.g. VEVOR 16 Pcs) and just toggle
+   **Enabled bits**, or leave Preset on `Custom` and fill in your own
+   bits' measurements under **Bit list**.
+3. Only `head_dia` is required per bit — everything else falls back to
+   sensible defaults you set once under **Bit defaults**.
+4. Optional: set `test_bit` under **Testing** to a slot number first and
+   print that small coupon to check the fit before printing the full tray.
+5. Render and print the full tray (`test_bit = 0`).
+
+Full field-by-field reference and split-print guidance are in the
+project's [README](README.md) / on the [GitHub repo](https://github.com/xphir/gridfinity-forstner-drill-bits-openscad).
+
+### Print settings
+
+- 0.2 mm layer height, 3+ walls, 15–20% infill is plenty (it's a tray, not
+  a structural part).
+- No supports needed.
+- If bits feel loose or too tight, reprint just the test coupon
+  (`test_bit`) while adjusting `slot_clearance` and `grip_pinch` rather
+  than the whole tray.
+
+### Credit
+
+Base profile, stacking lip, and magnet/screw holes come from
+[kennetek/gridfinity-rebuilt-openscad](https://github.com/kennetek/gridfinity-rebuilt-openscad)
+(MIT licensed). This model only adds the bit rail geometry.
+
+### License
+
+MIT.
