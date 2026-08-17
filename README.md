@@ -120,10 +120,10 @@ re-printing the full tray while dialing in `slot_clearance` and
 `slot_clearance` — the right value depends on your printer and filament,
 and is cheap to check with the coupon before committing to a full tray.
 
-Set `test_all_bits` instead to render one labelled coupon per enabled bit,
-side by side on a single plate — a one-print check that every size in the
-set grips correctly, rather than testing them one at a time. It overrides
-`test_bit` while on.
+Set `test_all_bits` instead to render one connected, height-reduced rail
+strip covering every enabled bit at its real spacing — a single quick
+print that checks the whole set's fit, including bit-to-bit spacing, not
+just each bit in isolation. It overrides `test_bit` while on.
 
 ## Gallery
 
