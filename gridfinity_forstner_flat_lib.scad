@@ -74,33 +74,33 @@ alternate = true;
 // Sort the bit list largest-head-first before laying out. Off = keep the order you typed them in (useful for testing a specific arrangement).
 sort_bits = true;
 // Air gap between neighbouring bits, mm (all measurements below are mm too).
-bit_gap = 2;
+bit_gap = 2; // .5
 // Gap between the ends of the bits and the inside of the bin wall
-end_gap = 2;
+end_gap = 2; // .5
 // Air under the heads, so you can get a finger under a bit to lift it
-head_floor_gap = 2;
+head_floor_gap = 2; // .5
 
 
 /* [Rails] */
 
 // Distance between the two rails, mm. 0 = auto (as far apart as the bits allow).
-rail_gap = 0;
+rail_gap = 0; // .5
 // Width of each rail (and the seat cut into it) along the bit's length.
-rail_width = 6;
+rail_width = 6; // .5
 // Keep the rail at least this far clear of the back of the head
-rail_margin = 1.5;
+rail_margin = 1.5; // .5
 // Extra radius added to every seat so bits aren't a dead-tight press fit.
-slot_clearance = 0.05;
+slot_clearance = 0.05; // .01
 // How far the seat continues straight up past the shaft centreline
-grip = 1.5;
+grip = 1.5; // .5
 // Funnel widening at the mouth of each seat
-slot_flare = 1.2;
+slot_flare = 1.2; // .1
 // Minimum material left between two neighbouring seats
-rail_wall = 1.6;
+rail_wall = 1.6; // .1
 // How much narrower than the bit's radius the retention pinch is, mm, so bits click into place instead of resting loosely; 0 = no pinch (plain funnel). Dial in with a test swatch (see [Testing]).
-grip_pinch = 0.2;
+grip_pinch = 0.2; // .05
 // How far above the seat's straight-walled cradle (grip) the pinch sits.
-grip_pinch_height = 1;
+grip_pinch_height = 1; // .5
 
 
 /* [Bin] */
@@ -113,9 +113,9 @@ allow_half_units = false;
 // Height in gridfinity units (7 mm each). 0 = auto.
 height_units = 0;
 // Extra floor, mm, on top of the library's 7 mm base (usually leave at 0); if include_lip is off this MUST be > 0, since without a lip the walls are built from the floor's infill.
-extra_floor = 0;
+extra_floor = 0; // .1
 // Air above the tallest bit (mm). Only used when height_units = 0 (auto).
-top_clearance = 2;
+top_clearance = 2; // .5
 
 // Stacking lip around the top rim, so another bin can stack on this one; if off, see the extra_floor note above.
 include_lip = true;
@@ -140,22 +140,22 @@ only_corners = false;
 // Engrave each bit's label (from the bit list) into the floor under it.
 labels = true;
 // Text height (mm). Only has an effect if labels is on.
-label_size = 5;
+label_size = 5; // .5
 // How deep the text is cut into the floor (mm). Only has an effect if labels is on.
-label_depth = 0.6;
+label_depth = 0.6; // .05
 
 
 /* [Bit defaults] */
 // All values in mm. Fallback used by any bit below that leaves its own matching field at 0 (does not apply to head_diameter, which always comes from the bit's own field).
-default_head_length = 15;
-default_neck_diameter = 8;
-default_neck_length = 0;
-default_body_diameter = 8;
-default_body_length = 40;
-default_waist_diameter = 8;
-default_waist_length = 0;
-default_base_diameter = 8;
-default_base_length = 25;
+default_head_length = 15; // .5
+default_neck_diameter = 8; // .5
+default_neck_length = 0; // .5
+default_body_diameter = 8; // .5
+default_body_length = 40; // .5
+default_waist_diameter = 8; // .5
+default_waist_length = 0; // .5
+default_base_diameter = 8; // .5
+default_base_length = 25; // .5
 
 
 /* [Enabled bits] */
@@ -447,7 +447,7 @@ bit_20_mount_neck = false;
 
 /* [Testing] */
 // Render a small test swatch for just this bit's seats instead of the whole bin (ignores grid_x/grid_y/height_units/labels while active, and is ignored itself if test_all_bits is on); 0 = off, full bin. 1-based slot number in the order slots appear (bit_01, bit_02, ...), skipping disabled ones, not sorted layout order.
-test_bit = 0;
+test_bit = 0; // [0:20]
 // Render one connected, height-reduced rail strip covering every enabled bit at its real spacing, each labelled -- tests the whole set's fit (including bit-to-bit spacing) in one quick print. Overrides test_bit above while on.
 test_all_bits = false;
 
