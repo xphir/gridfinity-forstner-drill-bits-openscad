@@ -773,18 +773,35 @@ module test_swatch() {
     j = min(max(test_bit, 1), nbits) - 1;
     i = [for (k = [0:nbits-1]) if (order[k] == j) k][0];
     pad = 10;
-    sx = G + rail_width + 2*pad;
+    // no sideways overhang -- an upside-down Pi/U shape: the connecting
+    // base spans exactly rail-to-rail, nothing sticking out past the legs
+    sx = G + rail_width;
     sy = rail_width + 2*pad;
+    // thin connector, just enough to hold the two rail "legs" together --
+    // this is only for testing grip/fit, not a real gridfinity floor
+    base_h = 2;
+    // half the leg height to save time/material -- everything below
+    // axis_z is just plain material anyway (the cutout itself lives
+    // between axis_z and rail_top), so shorten from the BOTTOM and leave
+    // the top -- and the cutout -- untouched. Clamped so it can never
+    // shorten enough to reach into the cutout, regardless of bit sizes.
+    full_leg_h = rail_top - floor_z;
+    min_leg_h  = (rail_top - axis_z) + 2;
+    leg_h = max(full_leg_h / 2, min_leg_h);
+    shift = (rail_top - leg_h) - base_h;
     difference() {
         union() {
             translate([-sx/2, -sy/2, 0])
-                cube([sx, sy, floor_z]);
+                cube([sx, sy, base_h]);
+            translate([0, 0, -shift])
             for (x = [-G/2, G/2])
-                translate([x - rail_width/2, -sy/2, floor_z - EPS])
-                    cube([rail_width, sy, rail_top - floor_z + EPS]);
+                translate([x - rail_width/2, -sy/2, rail_top - leg_h - EPS])
+                    cube([rail_width, sy, leg_h + EPS]);
         }
-        translate([-G/2, 0, 0]) seat(dL(i));
-        translate([ G/2, 0, 0]) seat(dR(i));
+        translate([0, 0, -shift]) {
+            translate([-G/2, 0, 0]) seat(dL(i));
+            translate([ G/2, 0, 0]) seat(dR(i));
+        }
     }
 }
 
