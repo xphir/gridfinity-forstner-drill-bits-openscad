@@ -3,3 +3,4 @@ export/
 *.png
 *.3mf
 !photos/*.png
+!profiles/*.3mf
