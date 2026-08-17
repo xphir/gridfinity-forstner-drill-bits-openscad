@@ -62,10 +62,11 @@ use <gridfinity-rebuilt-openscad/src/core/gridfinity-rebuilt-utility.scad>
 // =============================================================================
 
 /* [Preset] */
-// Load a known bit set's measurements instead of the individual bit
-// fields below (which are ignored, including their enabled checkboxes,
-// while a preset other than Custom is selected). Pick Custom to go back
-// to editing the fields below yourself.
+// Load a known bit set's measurements into the bit fields below, one row
+// per slot (slot 1 gets the preset's first bit, etc.) -- only the sizes,
+// not which slots are enabled. Still use "Enabled bits" below to choose
+// which of the preset's bits you actually want in this print. Pick
+// Custom to edit the fields below yourself instead.
 preset = "custom"; // [custom:Custom, vevor16:VEVOR 16 Pcs Forstner Bit Set]
 
 /* [Bit defaults] */
@@ -516,56 +517,55 @@ function preset_bits(name) =
     ] : [];
 
 _preset = preset_bits(preset);
-_using_preset = len(_preset) > 0;
+_preset_len = len(_preset);
 
-// Gather the 20 individual bit slots above into plain lists, keeping only
-// the enabled ones -- unless a preset is active, in which case its table
-// is the source instead and the individual fields (including enabled)
-// are ignored. Either way, 0 in a resolved field falls back to default_*.
-// This is the only place that needs to know there are 20 separate slots
-// -- everything below just works with a simple list either way.
+// Gather the 20 individual bit slots above into plain lists. This is the
+// only place that needs to know there are 20 separate slots -- everything
+// below just works with a simple list.
 _enabled        = [bit01_enabled, bit02_enabled, bit03_enabled, bit04_enabled, bit05_enabled, bit06_enabled, bit07_enabled, bit08_enabled, bit09_enabled, bit10_enabled, bit11_enabled, bit12_enabled, bit13_enabled, bit14_enabled, bit15_enabled, bit16_enabled, bit17_enabled, bit18_enabled, bit19_enabled, bit20_enabled];
-_head_dia_raw   = [bit01_head_dia, bit02_head_dia, bit03_head_dia, bit04_head_dia, bit05_head_dia, bit06_head_dia, bit07_head_dia, bit08_head_dia, bit09_head_dia, bit10_head_dia, bit11_head_dia, bit12_head_dia, bit13_head_dia, bit14_head_dia, bit15_head_dia, bit16_head_dia, bit17_head_dia, bit18_head_dia, bit19_head_dia, bit20_head_dia];
-_head_len_raw   = [bit01_head_len, bit02_head_len, bit03_head_len, bit04_head_len, bit05_head_len, bit06_head_len, bit07_head_len, bit08_head_len, bit09_head_len, bit10_head_len, bit11_head_len, bit12_head_len, bit13_head_len, bit14_head_len, bit15_head_len, bit16_head_len, bit17_head_len, bit18_head_len, bit19_head_len, bit20_head_len];
-_neck_dia_raw   = [bit01_neck_dia, bit02_neck_dia, bit03_neck_dia, bit04_neck_dia, bit05_neck_dia, bit06_neck_dia, bit07_neck_dia, bit08_neck_dia, bit09_neck_dia, bit10_neck_dia, bit11_neck_dia, bit12_neck_dia, bit13_neck_dia, bit14_neck_dia, bit15_neck_dia, bit16_neck_dia, bit17_neck_dia, bit18_neck_dia, bit19_neck_dia, bit20_neck_dia];
-_neck_len_raw   = [bit01_neck_len, bit02_neck_len, bit03_neck_len, bit04_neck_len, bit05_neck_len, bit06_neck_len, bit07_neck_len, bit08_neck_len, bit09_neck_len, bit10_neck_len, bit11_neck_len, bit12_neck_len, bit13_neck_len, bit14_neck_len, bit15_neck_len, bit16_neck_len, bit17_neck_len, bit18_neck_len, bit19_neck_len, bit20_neck_len];
-_body_dia_raw   = [bit01_body_dia, bit02_body_dia, bit03_body_dia, bit04_body_dia, bit05_body_dia, bit06_body_dia, bit07_body_dia, bit08_body_dia, bit09_body_dia, bit10_body_dia, bit11_body_dia, bit12_body_dia, bit13_body_dia, bit14_body_dia, bit15_body_dia, bit16_body_dia, bit17_body_dia, bit18_body_dia, bit19_body_dia, bit20_body_dia];
-_body_len_raw   = [bit01_body_len, bit02_body_len, bit03_body_len, bit04_body_len, bit05_body_len, bit06_body_len, bit07_body_len, bit08_body_len, bit09_body_len, bit10_body_len, bit11_body_len, bit12_body_len, bit13_body_len, bit14_body_len, bit15_body_len, bit16_body_len, bit17_body_len, bit18_body_len, bit19_body_len, bit20_body_len];
-_waist_dia_raw  = [bit01_waist_dia, bit02_waist_dia, bit03_waist_dia, bit04_waist_dia, bit05_waist_dia, bit06_waist_dia, bit07_waist_dia, bit08_waist_dia, bit09_waist_dia, bit10_waist_dia, bit11_waist_dia, bit12_waist_dia, bit13_waist_dia, bit14_waist_dia, bit15_waist_dia, bit16_waist_dia, bit17_waist_dia, bit18_waist_dia, bit19_waist_dia, bit20_waist_dia];
-_waist_len_raw  = [bit01_waist_len, bit02_waist_len, bit03_waist_len, bit04_waist_len, bit05_waist_len, bit06_waist_len, bit07_waist_len, bit08_waist_len, bit09_waist_len, bit10_waist_len, bit11_waist_len, bit12_waist_len, bit13_waist_len, bit14_waist_len, bit15_waist_len, bit16_waist_len, bit17_waist_len, bit18_waist_len, bit19_waist_len, bit20_waist_len];
-_base_dia_raw   = [bit01_base_dia, bit02_base_dia, bit03_base_dia, bit04_base_dia, bit05_base_dia, bit06_base_dia, bit07_base_dia, bit08_base_dia, bit09_base_dia, bit10_base_dia, bit11_base_dia, bit12_base_dia, bit13_base_dia, bit14_base_dia, bit15_base_dia, bit16_base_dia, bit17_base_dia, bit18_base_dia, bit19_base_dia, bit20_base_dia];
-_base_len_raw   = [bit01_base_len, bit02_base_len, bit03_base_len, bit04_base_len, bit05_base_len, bit06_base_len, bit07_base_len, bit08_base_len, bit09_base_len, bit10_base_len, bit11_base_len, bit12_base_len, bit13_base_len, bit14_base_len, bit15_base_len, bit16_base_len, bit17_base_len, bit18_base_len, bit19_base_len, bit20_base_len];
-_mount_neck_raw = [bit01_mount_neck, bit02_mount_neck, bit03_mount_neck, bit04_mount_neck, bit05_mount_neck, bit06_mount_neck, bit07_mount_neck, bit08_mount_neck, bit09_mount_neck, bit10_mount_neck, bit11_mount_neck, bit12_mount_neck, bit13_mount_neck, bit14_mount_neck, bit15_mount_neck, bit16_mount_neck, bit17_mount_neck, bit18_mount_neck, bit19_mount_neck, bit20_mount_neck];
+_field_head_dia   = [bit01_head_dia, bit02_head_dia, bit03_head_dia, bit04_head_dia, bit05_head_dia, bit06_head_dia, bit07_head_dia, bit08_head_dia, bit09_head_dia, bit10_head_dia, bit11_head_dia, bit12_head_dia, bit13_head_dia, bit14_head_dia, bit15_head_dia, bit16_head_dia, bit17_head_dia, bit18_head_dia, bit19_head_dia, bit20_head_dia];
+_field_head_len   = [bit01_head_len, bit02_head_len, bit03_head_len, bit04_head_len, bit05_head_len, bit06_head_len, bit07_head_len, bit08_head_len, bit09_head_len, bit10_head_len, bit11_head_len, bit12_head_len, bit13_head_len, bit14_head_len, bit15_head_len, bit16_head_len, bit17_head_len, bit18_head_len, bit19_head_len, bit20_head_len];
+_field_neck_dia   = [bit01_neck_dia, bit02_neck_dia, bit03_neck_dia, bit04_neck_dia, bit05_neck_dia, bit06_neck_dia, bit07_neck_dia, bit08_neck_dia, bit09_neck_dia, bit10_neck_dia, bit11_neck_dia, bit12_neck_dia, bit13_neck_dia, bit14_neck_dia, bit15_neck_dia, bit16_neck_dia, bit17_neck_dia, bit18_neck_dia, bit19_neck_dia, bit20_neck_dia];
+_field_neck_len   = [bit01_neck_len, bit02_neck_len, bit03_neck_len, bit04_neck_len, bit05_neck_len, bit06_neck_len, bit07_neck_len, bit08_neck_len, bit09_neck_len, bit10_neck_len, bit11_neck_len, bit12_neck_len, bit13_neck_len, bit14_neck_len, bit15_neck_len, bit16_neck_len, bit17_neck_len, bit18_neck_len, bit19_neck_len, bit20_neck_len];
+_field_body_dia   = [bit01_body_dia, bit02_body_dia, bit03_body_dia, bit04_body_dia, bit05_body_dia, bit06_body_dia, bit07_body_dia, bit08_body_dia, bit09_body_dia, bit10_body_dia, bit11_body_dia, bit12_body_dia, bit13_body_dia, bit14_body_dia, bit15_body_dia, bit16_body_dia, bit17_body_dia, bit18_body_dia, bit19_body_dia, bit20_body_dia];
+_field_body_len   = [bit01_body_len, bit02_body_len, bit03_body_len, bit04_body_len, bit05_body_len, bit06_body_len, bit07_body_len, bit08_body_len, bit09_body_len, bit10_body_len, bit11_body_len, bit12_body_len, bit13_body_len, bit14_body_len, bit15_body_len, bit16_body_len, bit17_body_len, bit18_body_len, bit19_body_len, bit20_body_len];
+_field_waist_dia  = [bit01_waist_dia, bit02_waist_dia, bit03_waist_dia, bit04_waist_dia, bit05_waist_dia, bit06_waist_dia, bit07_waist_dia, bit08_waist_dia, bit09_waist_dia, bit10_waist_dia, bit11_waist_dia, bit12_waist_dia, bit13_waist_dia, bit14_waist_dia, bit15_waist_dia, bit16_waist_dia, bit17_waist_dia, bit18_waist_dia, bit19_waist_dia, bit20_waist_dia];
+_field_waist_len  = [bit01_waist_len, bit02_waist_len, bit03_waist_len, bit04_waist_len, bit05_waist_len, bit06_waist_len, bit07_waist_len, bit08_waist_len, bit09_waist_len, bit10_waist_len, bit11_waist_len, bit12_waist_len, bit13_waist_len, bit14_waist_len, bit15_waist_len, bit16_waist_len, bit17_waist_len, bit18_waist_len, bit19_waist_len, bit20_waist_len];
+_field_base_dia   = [bit01_base_dia, bit02_base_dia, bit03_base_dia, bit04_base_dia, bit05_base_dia, bit06_base_dia, bit07_base_dia, bit08_base_dia, bit09_base_dia, bit10_base_dia, bit11_base_dia, bit12_base_dia, bit13_base_dia, bit14_base_dia, bit15_base_dia, bit16_base_dia, bit17_base_dia, bit18_base_dia, bit19_base_dia, bit20_base_dia];
+_field_base_len   = [bit01_base_len, bit02_base_len, bit03_base_len, bit04_base_len, bit05_base_len, bit06_base_len, bit07_base_len, bit08_base_len, bit09_base_len, bit10_base_len, bit11_base_len, bit12_base_len, bit13_base_len, bit14_base_len, bit15_base_len, bit16_base_len, bit17_base_len, bit18_base_len, bit19_base_len, bit20_base_len];
+_field_mount_neck = [bit01_mount_neck, bit02_mount_neck, bit03_mount_neck, bit04_mount_neck, bit05_mount_neck, bit06_mount_neck, bit07_mount_neck, bit08_mount_neck, bit09_mount_neck, bit10_mount_neck, bit11_mount_neck, bit12_mount_neck, bit13_mount_neck, bit14_mount_neck, bit15_mount_neck, bit16_mount_neck, bit17_mount_neck, bit18_mount_neck, bit19_mount_neck, bit20_mount_neck];
+
+// A preset only supplies SIZES, one row per slot in order (slot i gets
+// preset row i) -- it does not touch enabled/disabled at all. Slots
+// beyond the preset's length (or every slot, once "custom" is selected)
+// keep using their own field values. Either way, "Enabled bits" above is
+// what actually decides which slots are included.
+function overlay(field, col) = [for (i = [0:19]) i < _preset_len ? _preset[i][col] : field[i]];
+_head_dia_raw   = overlay(_field_head_dia, 0);
+_head_len_raw   = overlay(_field_head_len, 1);
+_neck_dia_raw   = overlay(_field_neck_dia, 2);
+_neck_len_raw   = overlay(_field_neck_len, 3);
+_body_dia_raw   = overlay(_field_body_dia, 4);
+_body_len_raw   = overlay(_field_body_len, 5);
+_waist_dia_raw  = overlay(_field_waist_dia, 6);
+_waist_len_raw  = overlay(_field_waist_len, 7);
+_base_dia_raw   = overlay(_field_base_dia, 8);
+_base_len_raw   = overlay(_field_base_len, 9);
+_mount_neck_raw = overlay(_field_mount_neck, 10);
 
 _active = [for (i = [0:19]) if (_enabled[i]) i];
 
-// unsorted per-bit values, either from the preset table or gathered from
-// the individual bitNN_* fields -- same shape either way, so everything
-// downstream (including the 0-means-default resolution) is unaffected by
-// which source is active.
-_head_dia_src   = _using_preset ? [for (r = _preset) r[0]]  : [for (i = _active) _head_dia_raw[i]];
-_head_len_src   = _using_preset ? [for (r = _preset) r[1]]  : [for (i = _active) _head_len_raw[i]];
-_neck_dia_src   = _using_preset ? [for (r = _preset) r[2]]  : [for (i = _active) _neck_dia_raw[i]];
-_neck_len_src   = _using_preset ? [for (r = _preset) r[3]]  : [for (i = _active) _neck_len_raw[i]];
-_body_dia_src   = _using_preset ? [for (r = _preset) r[4]]  : [for (i = _active) _body_dia_raw[i]];
-_body_len_src   = _using_preset ? [for (r = _preset) r[5]]  : [for (i = _active) _body_len_raw[i]];
-_waist_dia_src  = _using_preset ? [for (r = _preset) r[6]]  : [for (i = _active) _waist_dia_raw[i]];
-_waist_len_src  = _using_preset ? [for (r = _preset) r[7]]  : [for (i = _active) _waist_len_raw[i]];
-_base_dia_src   = _using_preset ? [for (r = _preset) r[8]]  : [for (i = _active) _base_dia_raw[i]];
-_base_len_src   = _using_preset ? [for (r = _preset) r[9]]  : [for (i = _active) _base_len_raw[i]];
-_mount_neck_src = _using_preset ? [for (r = _preset) r[10]] : [for (i = _active) _mount_neck_raw[i]];
-
-head_dias   = _head_dia_src;
-head_lens   = [for (v = _head_len_src)  v > 0 ? v : default_head_len];
-neck_dias   = [for (v = _neck_dia_src)  v > 0 ? v : default_neck_dia];
-neck_lens   = [for (v = _neck_len_src)  v > 0 ? v : default_neck_len];
-body_dias   = [for (v = _body_dia_src)  v > 0 ? v : default_body_dia];
-body_lens   = [for (v = _body_len_src)  v > 0 ? v : default_body_len];
-waist_dias  = [for (v = _waist_dia_src) v > 0 ? v : default_waist_dia];
-waist_lens  = [for (v = _waist_len_src) v > 0 ? v : default_waist_len];
-base_dias   = [for (v = _base_dia_src)  v > 0 ? v : default_base_dia];
-base_lens   = [for (v = _base_len_src)  v > 0 ? v : default_base_len];
-mount_necks = _mount_neck_src;
+head_dias   = [for (i = _active) _head_dia_raw[i]];
+head_lens   = [for (i = _active) _head_len_raw[i]   > 0 ? _head_len_raw[i]   : default_head_len];
+neck_dias   = [for (i = _active) _neck_dia_raw[i]   > 0 ? _neck_dia_raw[i]   : default_neck_dia];
+neck_lens   = [for (i = _active) _neck_len_raw[i]   > 0 ? _neck_len_raw[i]   : default_neck_len];
+body_dias   = [for (i = _active) _body_dia_raw[i]   > 0 ? _body_dia_raw[i]   : default_body_dia];
+body_lens   = [for (i = _active) _body_len_raw[i]   > 0 ? _body_len_raw[i]   : default_body_len];
+waist_dias  = [for (i = _active) _waist_dia_raw[i]  > 0 ? _waist_dia_raw[i]  : default_waist_dia];
+waist_lens  = [for (i = _active) _waist_len_raw[i]  > 0 ? _waist_len_raw[i]  : default_waist_len];
+base_dias   = [for (i = _active) _base_dia_raw[i]   > 0 ? _base_dia_raw[i]   : default_base_dia];
+base_lens   = [for (i = _active) _base_len_raw[i]   > 0 ? _base_len_raw[i]   : default_base_len];
+mount_necks = [for (i = _active) _mount_neck_raw[i]];
 
 // tied directly into nbits's own definition (rather than a separate bare
 // assert() statement) because OpenSCAD evaluates top-level variables
