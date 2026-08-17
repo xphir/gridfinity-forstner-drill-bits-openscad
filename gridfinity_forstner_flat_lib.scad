@@ -61,6 +61,13 @@ use <gridfinity-rebuilt-openscad/src/core/gridfinity-rebuilt-utility.scad>
 //  supports list-type parameters.
 // =============================================================================
 
+/* [Preset] */
+// Load a known bit set's measurements instead of the individual bit
+// fields below (which are ignored, including their enabled checkboxes,
+// while a preset other than Custom is selected). Pick Custom to go back
+// to editing the fields below yourself.
+preset = "custom"; // [custom:Custom, vevor16:VEVOR 16 Pcs Forstner Bit Set]
+
 /* [Bit defaults] */
 // Used by any bit below that leaves its own head_len/neck_dia/neck_len/
 // body_dia/body_len/waist_dia/waist_len/base_dia/base_len at 0. Does not
@@ -481,11 +488,42 @@ EPS = 0.01;
 section_view = false;
 $fn = 64;
 
+// Known bit sets, selectable via the preset dropdown above instead of
+// filling in the individual bit fields by hand. Each row is
+// [head_dia, head_len, neck_dia, neck_len, body_dia, body_len, waist_dia,
+// waist_len, base_dia, base_len, mount_neck] -- the same ten dimensions
+// plus mountN as a bit's own fields, just in one internal table instead
+// of scattered across 11 customizer fields each. Returns [] for "custom"
+// (and any unrecognised name), meaning "use the individual fields".
+function preset_bits(name) =
+    name == "vevor16" ? [
+        [ 6,  8, 4.75, 15, 5.55, 35, 0, 2, 9.55, 30, true],
+        [ 9, 12,    6, 15,    8, 30, 0, 3, 9.55, 30, true],
+        [12, 12,    6, 15,    8, 30, 0, 3, 9.55, 30, true],
+        [15,  0,    0,  0, 9.85, 45, 0, 0, 7.94, 30, false],
+        [16,  0,    0,  0, 9.52, 45, 0, 0, 9.52, 30, false],
+        [19,  0,    0,  0, 9.52, 45, 0, 0, 9.52, 30, false],
+        [20,  0,    0,  0, 9.85, 45, 0, 0, 7.94, 30, false],
+        [20,  0,    0,  0, 9.85, 45, 0, 0, 7.94, 30, false],
+        [25,  0,    0,  0,   12, 45, 0, 0, 7.94, 30, false],
+        [28,  0,    0,  0,   12, 45, 0, 0, 9.52, 30, false],
+        [30,  0,    0,  0,   12, 45, 0, 0, 7.94, 30, false],
+        [32,  0,    0,  0,   12, 45, 0, 0, 9.52, 30, false],
+        [35,  0,    0,  0,   12, 45, 0, 0, 9.52, 30, false],
+        [38,  0,    0,  0,   12, 45, 0, 0, 9.52, 30, false],
+        [40,  0,    0,  0,   12, 45, 0, 0, 9.52, 30, false],
+        [41,  0,    0,  0,   12, 45, 0, 0, 9.52, 30, false],
+    ] : [];
+
+_preset = preset_bits(preset);
+_using_preset = len(_preset) > 0;
+
 // Gather the 20 individual bit slots above into plain lists, keeping only
-// the enabled ones and resolving any 0 (default sentinel) fields
-// against default_*. This is the only place that needs to know there are
-// 20 separate slots -- everything below just works with a simple list,
-// same as before the slots existed.
+// the enabled ones -- unless a preset is active, in which case its table
+// is the source instead and the individual fields (including enabled)
+// are ignored. Either way, 0 in a resolved field falls back to default_*.
+// This is the only place that needs to know there are 20 separate slots
+// -- everything below just works with a simple list either way.
 _enabled        = [bit01_enabled, bit02_enabled, bit03_enabled, bit04_enabled, bit05_enabled, bit06_enabled, bit07_enabled, bit08_enabled, bit09_enabled, bit10_enabled, bit11_enabled, bit12_enabled, bit13_enabled, bit14_enabled, bit15_enabled, bit16_enabled, bit17_enabled, bit18_enabled, bit19_enabled, bit20_enabled];
 _head_dia_raw   = [bit01_head_dia, bit02_head_dia, bit03_head_dia, bit04_head_dia, bit05_head_dia, bit06_head_dia, bit07_head_dia, bit08_head_dia, bit09_head_dia, bit10_head_dia, bit11_head_dia, bit12_head_dia, bit13_head_dia, bit14_head_dia, bit15_head_dia, bit16_head_dia, bit17_head_dia, bit18_head_dia, bit19_head_dia, bit20_head_dia];
 _head_len_raw   = [bit01_head_len, bit02_head_len, bit03_head_len, bit04_head_len, bit05_head_len, bit06_head_len, bit07_head_len, bit08_head_len, bit09_head_len, bit10_head_len, bit11_head_len, bit12_head_len, bit13_head_len, bit14_head_len, bit15_head_len, bit16_head_len, bit17_head_len, bit18_head_len, bit19_head_len, bit20_head_len];
@@ -501,17 +539,33 @@ _mount_neck_raw = [bit01_mount_neck, bit02_mount_neck, bit03_mount_neck, bit04_m
 
 _active = [for (i = [0:19]) if (_enabled[i]) i];
 
-head_dias   = [for (i = _active) _head_dia_raw[i]];
-head_lens   = [for (i = _active) _head_len_raw[i]   > 0 ? _head_len_raw[i]   : default_head_len];
-neck_dias   = [for (i = _active) _neck_dia_raw[i]   > 0 ? _neck_dia_raw[i]   : default_neck_dia];
-neck_lens   = [for (i = _active) _neck_len_raw[i]   > 0 ? _neck_len_raw[i]   : default_neck_len];
-body_dias   = [for (i = _active) _body_dia_raw[i]   > 0 ? _body_dia_raw[i]   : default_body_dia];
-body_lens   = [for (i = _active) _body_len_raw[i]   > 0 ? _body_len_raw[i]   : default_body_len];
-waist_dias  = [for (i = _active) _waist_dia_raw[i]  > 0 ? _waist_dia_raw[i]  : default_waist_dia];
-waist_lens  = [for (i = _active) _waist_len_raw[i]  > 0 ? _waist_len_raw[i]  : default_waist_len];
-base_dias   = [for (i = _active) _base_dia_raw[i]   > 0 ? _base_dia_raw[i]   : default_base_dia];
-base_lens   = [for (i = _active) _base_len_raw[i]   > 0 ? _base_len_raw[i]   : default_base_len];
-mount_necks = [for (i = _active) _mount_neck_raw[i]];
+// unsorted per-bit values, either from the preset table or gathered from
+// the individual bitNN_* fields -- same shape either way, so everything
+// downstream (including the 0-means-default resolution) is unaffected by
+// which source is active.
+_head_dia_src   = _using_preset ? [for (r = _preset) r[0]]  : [for (i = _active) _head_dia_raw[i]];
+_head_len_src   = _using_preset ? [for (r = _preset) r[1]]  : [for (i = _active) _head_len_raw[i]];
+_neck_dia_src   = _using_preset ? [for (r = _preset) r[2]]  : [for (i = _active) _neck_dia_raw[i]];
+_neck_len_src   = _using_preset ? [for (r = _preset) r[3]]  : [for (i = _active) _neck_len_raw[i]];
+_body_dia_src   = _using_preset ? [for (r = _preset) r[4]]  : [for (i = _active) _body_dia_raw[i]];
+_body_len_src   = _using_preset ? [for (r = _preset) r[5]]  : [for (i = _active) _body_len_raw[i]];
+_waist_dia_src  = _using_preset ? [for (r = _preset) r[6]]  : [for (i = _active) _waist_dia_raw[i]];
+_waist_len_src  = _using_preset ? [for (r = _preset) r[7]]  : [for (i = _active) _waist_len_raw[i]];
+_base_dia_src   = _using_preset ? [for (r = _preset) r[8]]  : [for (i = _active) _base_dia_raw[i]];
+_base_len_src   = _using_preset ? [for (r = _preset) r[9]]  : [for (i = _active) _base_len_raw[i]];
+_mount_neck_src = _using_preset ? [for (r = _preset) r[10]] : [for (i = _active) _mount_neck_raw[i]];
+
+head_dias   = _head_dia_src;
+head_lens   = [for (v = _head_len_src)  v > 0 ? v : default_head_len];
+neck_dias   = [for (v = _neck_dia_src)  v > 0 ? v : default_neck_dia];
+neck_lens   = [for (v = _neck_len_src)  v > 0 ? v : default_neck_len];
+body_dias   = [for (v = _body_dia_src)  v > 0 ? v : default_body_dia];
+body_lens   = [for (v = _body_len_src)  v > 0 ? v : default_body_len];
+waist_dias  = [for (v = _waist_dia_src) v > 0 ? v : default_waist_dia];
+waist_lens  = [for (v = _waist_len_src) v > 0 ? v : default_waist_len];
+base_dias   = [for (v = _base_dia_src)  v > 0 ? v : default_base_dia];
+base_lens   = [for (v = _base_len_src)  v > 0 ? v : default_base_len];
+mount_necks = _mount_neck_src;
 
 // tied directly into nbits's own definition (rather than a separate bare
 // assert() statement) because OpenSCAD evaluates top-level variables
