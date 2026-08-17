@@ -106,6 +106,9 @@ Base profile, stacking lip, and magnet/screw holes come from
 [kennetek/gridfinity-rebuilt-openscad](https://github.com/kennetek/gridfinity-rebuilt-openscad)
 (MIT licensed). This model only adds the bit rail geometry.
 
+Inspired by PabloFernandez's [Gridfinity Bins for Forstner Drill Bits](https://www.printables.com/model/870351-gridfinity-bins-for-forstner-drill-bits)
+on Printables.
+
 ### License
 
 The source (GitHub repo) is MIT. MakerWorld doesn't offer MIT as a listing

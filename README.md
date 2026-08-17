@@ -9,6 +9,10 @@ Built on [kennetek/gridfinity-rebuilt-openscad](https://github.com/kennetek/grid
 for the base profile, stacking lip, walls, and magnet/screw holes. This repo
 only adds the rail geometry that cradles the bits.
 
+Inspired by [PabloFernandez](https://www.printables.com/@PabloFernandez)'s
+[Gridfinity Bins for Forstner Drill Bits](https://www.printables.com/model/870351-gridfinity-bins-for-forstner-drill-bits)
+on Printables.
+
 ![Two printed trays, one sized for a small-bit set and one for a large-bit set](photos/hero-1.jpg)
 
 ## Setup
